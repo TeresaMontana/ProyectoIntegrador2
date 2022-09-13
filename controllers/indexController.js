@@ -1,12 +1,10 @@
-
-const controller={
-    index: function(req,res){
-        return res.render("index",{
-            
-        })
-            
-        
-    }
+const indexController = {
+    home: function(req,res){
+        res.render('index')
+    },
+    busqueda:  function(req,res){
+        res.render('resultadoBusqueda')
+    },
 }
 
-module.exports=controller
+module.exports = indexController
