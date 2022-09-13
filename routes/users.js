@@ -10,8 +10,8 @@ router.get('/registracion', usersController.registracion);
 
 
 
-
-router.get('/detalleUsuario', usersController.detalleUsuario);
+//las rutas parametrizadas van al final
+router.get('/detalleUsuario/:id', usersController.detalleUsuario);
 
 
 
