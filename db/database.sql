@@ -1,0 +1,61 @@
+CREATE SCHEMA redSocial;
+
+USE redSocial;
+
+
+CREATE TABLE usuarios (
+	id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+    email VARCHAR(255) NOT NULL UNIQUE, 
+    username VARCHAR(255) NOT NULL UNIQUE, 
+    foto VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL, 
+    nacimiento DATE NOT NULL, 
+    DNI INT(9) NOT NULL, 
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE posteos (
+	id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+    foto VARCHAR(255) NOT NULL,
+    texto VARCHAR(255) NOT NULL,
+    userId INT UNSIGNED, 
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    
+    FOREIGN KEY (userId) REFERENCES usuarios(id)
+);
+
+CREATE TABLE comentarios (
+	id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+    texto VARCHAR(255) NOT NULL,
+    userId INT UNSIGNED, 
+    postId INT UNSIGNED, 
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+
+    FOREIGN KEY (userId) REFERENCES usuarios(id),
+    FOREIGN KEY (postId) REFERENCES posteos(id)
+);
+
+
+INSERT INTO usuarios (email, username, foto, password, nacimiento, DNI)
+VALUES ();
+
+
+INSERT INTO posteos (foto, texto, FkUserId)
+VALUES ();
+
+INSERT INTO comentarios  (texto, FkUserbId, FkPostId)
+VALUES (), (), ();
+
+
+
+
+
+
+ 
+
+
