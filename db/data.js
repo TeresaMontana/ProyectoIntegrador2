@@ -54,8 +54,7 @@ const data = {
         posteos:8,
         seguidores:200,
         seguidos:240
-    },
-
+    }
     ],
     
     listadoPosteos : [

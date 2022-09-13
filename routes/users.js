@@ -3,7 +3,7 @@ var router = express.Router();
 const usersController = require('../controllers/usersController');
 
 /* GET users listing. */
-router.get('/editarPerfil', usersController.editarPerfil);
+router.get('/editarPerfil/', usersController.editarPerfil);
 router.get('/login', usersController.login);
 router.get('/miPerfil', usersController.miPerfil);
 router.get('/registracion', usersController.registracion);
