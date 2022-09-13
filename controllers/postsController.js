@@ -8,7 +8,7 @@ const postsController = {
         let idPosteo = req.params.id
         let encontrarPosteo = data.listadoPosteos
         res.render('detallePost', {
-            miLista: encontrarPosteo
+            miLista: encontrarPosteo //mal. Encontrar 1 posteo. Ver como sse hace en las clases 
         });
     },
 }
