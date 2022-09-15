@@ -6,7 +6,7 @@ const postsController = {
     },
     detallePost: function(req, res) {
         let idPosteo = req.params.id
-        let posteoEncontrado
+        let posteoEncontrado = []
         let comentarioPosteos = []
         for (let i = 0; i < data.listadoPosteos.length; i++) {
             if (data.listadoPosteos[i].id === idPosteo) {
@@ -22,7 +22,7 @@ const postsController = {
         posteoEncontrado.comentarios = comentarioPosteos
 
         res.render('detallePost', {
-            miLista: posteoEncontrado //mal. Encontrar 1 posteo. Ver como sse hace en las clases 
+            posteo: posteoEncontrado 
         });
     },
 }
