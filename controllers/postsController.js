@@ -6,7 +6,7 @@ const postsController = {
     },
     detallePost: function(req, res) {
         let idPosteo = req.params.id
-        let posteoEncontrado
+        let posteoEncontrado = []
         let comentarioPosteos = []
         for (let i = 0; i < data.listadoPosteos.length; i++) {
             if (data.listadoPosteos[i].id === idPosteo) {

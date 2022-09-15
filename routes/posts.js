@@ -4,6 +4,6 @@ var postsController = require ('../controllers/postsController')
 
 /*GET home page */
 router.get('/agregar', postsController.agregarPost);
-router.get('/detalle/:id', postsController.detallePost);
+router.get('/detallePost/:id', postsController.detallePost);
 
 module.exports = router 
