@@ -22,7 +22,7 @@ const postsController = {
         posteoEncontrado.comentarios = comentarioPosteos
 
         res.render('detallePost', {
-            miLista: posteoEncontrado //mal. Encontrar 1 posteo. Ver como sse hace en las clases 
+            posteo: posteoEncontrado 
         });
     },
 }
