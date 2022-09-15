@@ -11,12 +11,12 @@
             <section class="top main-content">
                 <img class="profile" src="https://via.placeholder.com/100x100" alt="">
                 <div class="info-usuario">
-                    <p>Nombre de usuario</p> 
+                    <p><%- info.posteos %> </p> 
                     <a class="follow" href="/users/editarPerfil"><i class="fa-solid fa-user-gear"></i></a>
                     <ul class="meta">
-                        <li>100 post</li>
-                        <li>200 seguidores</li>
-                        <li>300 seguidos</li>
+                        <li><%- info.username %></li>
+                        <li><%- info.seguidores %></li>
+                        <li><%- info.seguidos %></li>
                     </ul>
                 </div>
             </section>
@@ -24,6 +24,7 @@
                 <article class="post">
                     <a href="/posts/detallePost">
                         <img src="https://via.placeholder.com/200x250" alt="">
+                        <p> Texto del Post</p>
                     </a>
                 </article>
                 <article class="post">
