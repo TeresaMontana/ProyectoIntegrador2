@@ -6,25 +6,58 @@ const postsController = {
     },
     detallePost: function(req, res) {
         let idPosteo = req.params.id
-        let posteoEncontrado = []
-        let comentarioPosteos = []
-        for (let i = 0; i < data.listadoPosteos.length; i++) {
-            if (data.listadoPosteos[i].id === idPosteo) {
-                posteoEncontrado = data.listadoPosteos[i]
+
+        function buscarPosteoByID(idPosteo, data) {
+            
+            let posteoEncontrado = {}
+            let usuario = {}
+            let comentariosPosteos = []
+
+            for (let i = 0; i < data.listadoPosteos.length; i++) {
+                if (data.listadoPosteos[i].id == idPosteo) {
+                    posteoEncontrado = data.listadoPosteos[i]
+                }
             }
+
+            for (let i = 0; i < data.listadoUsuario.length; i++) {
+                if (posteoEncontrado.dni == data.listadoUsuario[i].dni) {
+                    usuario = data.listadoUsuario[i]
+                }
+            }
+
+            posteoEncontrado.usuario = usuario
+
+            for (let i = 0; i < data.listadoComentarios.length; i++) {
+                if (data.listadoComentarios[i].idPosteo == idPosteo) {
+                    comentariosPosteos.push(data.listadoComentarios[i])
+                }
+            }
+            
+            posteoEncontrado.comentarios = comentariosPosteos
+
+            posteoEncontrado.comentarios.forEach(comentario => {
+                comentario.usuario = buscarUsuarioComentario(comentario.dni,data.listadoUsuario)
+            })
+
+            return posteoEncontrado
         }
-        for (let i = 0; i < data.listadoComentarios.length; i++) {
-            if (data.listadoComentarios[i].idPosteo === idPosteo) {
-                comentarioPosteos.push(data.listadoComentarios[i])
-            }
+        
+        function buscarUsuarioComentario(dniComentario, usuarios) {
+            let usuarioEncontrado = {}
+            usuarios.forEach(usuario => {
+                if (usuario.dni == dniComentario) {
+                    usuarioEncontrado = usuario
+                }
+            });
+            return usuarioEncontrado
         }
 
-        posteoEncontrado.comentarios = comentarioPosteos
+        /*res.render('detallePost', {
+            posteo: buscarPosteoByID(idPosteo,data)
+        });*/
 
-        res.render('detallePost', {
-            posteo: posteoEncontrado 
-        });
-    },
+        res.send(buscarPosteoByID(idPosteo,data))
+    }
 }
 
 
