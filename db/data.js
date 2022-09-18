@@ -23,7 +23,7 @@ const data = {
         posteos:6,
         seguidores:40,
         seguidos:100,
-        dni: 418181
+        dni: 11111
     },
     {
         id:3,
@@ -35,7 +35,7 @@ const data = {
         posteos:8,
         seguidores:200,
         seguidos:240,
-        dni: 418181
+        dni: 22222
     },
     {
         id:4,
@@ -47,7 +47,7 @@ const data = {
         posteos:8,
         seguidores:200,
         seguidos:240,
-        dni: 418181
+        dni: 33333
     },
     {
         id:5,
@@ -59,20 +59,20 @@ const data = {
         posteos:4,
         seguidores:200,
         seguidos:240,
-        dni: 418181
+        dni: 44444
     }
     ],
     
          listadoPosteos : [
       { 
-        PostId: 5,
+        PostId: 1,
         foto: '/img/FotoProductos/mujer/foto1.jpeg',
         texto: 'Anillos hombre',
-        dni: '12345678',
+        dni: 44444,
     },
         {
-            PostId: 5,
-            dni: 418181,
+            PostId: 2,
+            dni: 33333,
             foto: '/img/FotoProductos/mujer/foto1.jpeg',
             texto: 'Temporada Verano 2023, coming soon...',
         },
@@ -83,20 +83,20 @@ const data = {
             texto: 'Las nuevas tendencias', 
         },
         {
-            PostId:3,
-            dni:10100,
+            PostId:4,
+            dni:22222,
             foto: '/img/FotoProductos/mujer/foto3.jpeg',
             texto: 'Nuevos Anillos para la coleccion 2023', 
         },
         {
-            PostId:4,
-            dni:92922,
+            PostId:5,
+            dni:418181,
             foto: '/img/FotoProductos/hombre/foto10.jpeg',
             texto: 'Las mejores joyas para hombres', 
         },
         {
-            PostId:4,
-            dni:929555,
+            PostId:6,
+            dni:44444,
             foto: '/img/FotoProductos/hombre/foto11.jpeg',
             texto: 'Summer Colection', 
         },
@@ -107,13 +107,13 @@ const data = {
         {
             id: 1,
             PostId: 1,
-            dni:11111,
+            dni:44444,
             comentario: "Que lindo!",
         },
         {
             id: 2,
             PostId: 1,
-            dni:11111,
+            dni:418181,
             comentario: "Que hermoso!",
         },
         {
@@ -125,7 +125,7 @@ const data = {
         {
             id: 4,
             PostId: 1,
-            dni:11111,
+            dni:22222,
             comentario: "Genial!",
         }
     ]
