@@ -1,55 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-	<%- include('./partials/head')%>
+<%- include('./partials/head')%>
 
-<body>
-    <%- include('./partials/header')%>
+    <body>
+        <%- include('./partials/header')%>
 
-    <main>
-        <section class="center main-content">
-            <% for( let i = 0; i < 4; i++ ) { %> 
-                <article class="post">
-                    <div class="info-usuario ">
-                        <img src="https://via.placeholder.com/40" alt="">
-                        <h4>
-                            <a href="/users/detalleUsuario">Usuario</a>
-                        </h4>
-                    </div>
-                    <div class="post-body">
-                        <a href="/posts/detallePost">
-                            <img src="https://via.placeholder.com/500x600" alt="">
-                        </a>
-                    </div>
-                    <ul class="post-reacciones">
-                        <li>
-                            <i class="fa-regular fa-heart"></i>
-                        </li>
-                        <li>
-                            <i class="fa-regular fa-comment"></i>
-                        </li>
-                    </ul>
-                    <div class="post-comentarios">
-                        <h4>Comentarios</h4>
-                        <ul>
-                            <li>
-                                <a href="/users/detalleUsuario">Usuario</a>
-                                <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi</span>
-                            </li>
-                            <li>
-                                <a href="/users/detalleUsuario">Usuario</a>
-                                <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi</span>
-                            </li>
-                            <a href="/posts/detallePost">Ver más...</a>
-                        </ul>
-                    </div>
-                </article>
-            
-            <% } %>
-        </section>    
-    </main>
+            <main>
+                <section class="center main-content">
+                    <% posteos.forEach(posteo => { %> 
+                        <article class="post">
+                            <div class="info-usuario ">
+                                <img src="<%= posteo.usuario.foto %>" alt="">
+                                <h4>
+                                    <a href="/users/detalleUsuario<%= posteo.usuario.dni %>"><%= posteo.usuario.nombreUsuario %></a>
+                                </h4>
+                            </div>
+                            <div class="post-body">
+                                <a href="/posts/detallePost<%= posteo.id %>">
+                                    <img src="<%= posteo.imagen %>" alt="">
+                                </a>
+                            </div>
+                            <ul class="post-reacciones">
+                                <li>
+                                    <i class="fa-regular fa-heart"></i>
+                                </li>
+                                <li>
+                                    <i class="fa-regular fa-comment"></i>
+                                </li>
+                            </ul>
+                            <div class="post-comentarios">
+                                <h4>Comentarios</h4>
+                                <ul>
+                                    <% posteo.comentarios.forEach(comentario => { %>
+                                        <li>
+                                            <a href="/users/detalleUsuario<%= comentario.usuario.dni %>"><%= comentario.usuario.nombreUsuario %></a>
+                                            <span><%= comentario.texto %></span>
+                                        </li>
+                                    <% }) %>
+                                    
+                                    <a href="/posts/detallePost<%= posteo.id %>">Ver más...</a>
+                                </ul>
+                            </div>
+                        </article>
+                    <% }) %> 
+                </section>
+            </main>
 
-    <%- include('./partials/footer')%>
+            <%- include('./partials/footer')%>
 
-</body>
+    </body>
 
 </html>
