@@ -5,14 +5,13 @@ const usersController = require('../controllers/usersController');
 /* GET users listing. */
 
 router.get('/login', usersController.login);
-router.get('/miPerfil', usersController.miPerfil);
 router.get('/registracion', usersController.registracion);
-
+router.get('/editarPerfil', usersController.editarPerfil);
 
 
 //las rutas parametrizadas van al final
-router.get('/detalleUsuario', usersController.detalleUsuario);
-router.get('/editarPerfil/:id', usersController.editarPerfil);
+router.get('/detalleUsuario/:id', usersController.detalleUsuario);
+router.get('/miPerfil/:id', usersController.miPerfil);
 
 
 
