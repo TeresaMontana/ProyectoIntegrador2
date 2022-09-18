@@ -10,7 +10,7 @@
                     <% posteos.forEach(posteo => { %> 
                         <article class="post">
                             <div class="info-usuario ">
-                                <img src="<%= posteo.usuario.foto %>" alt="">
+                                <img src="<%= posteo.usuario.foto %>" width= 100, height= 100 alt="">
                                 <h4>
                                     <a href="/users/detalleUsuario<%= posteo.usuario.dni %>"><%= posteo.usuario.nombreUsuario %></a>
                                 </h4>
