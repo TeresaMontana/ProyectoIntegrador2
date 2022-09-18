@@ -17,7 +17,7 @@ const usersController = {
             
     },
     miPerfil: function(req,res){
-        return res.render("miPerfil", {info: data.listadoUsuario[0], post: data.listadoPosteos}); 
+        return res.render("miPerfil", {info: data.listadoUsuario[0], Post: data.listadoPosteos}); 
         //ponemos el indice cero para indicar que queremos el cero
             
     },
