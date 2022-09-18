@@ -6,7 +6,7 @@ const indexController = {
         let listadoPosteos = data.listadoPosteos
 
         listadoPosteos.forEach(posteo => {
-            posteo.usuario = data.listadoUsuarios.find(usuario => usuario.dni === posteo.dni)
+            posteo.usuario = data.listadoUsuario.find(usuario => usuario.dni === posteo.dni)
             posteo.comentarios = data.listadoComentarios.filter(comentario => comentario.PostId === posteo.id)
             posteo.comentarios.forEach(comentario => {
                 comentario.usuario = data.listadoUsuarios.find(usuario => usuario.dni === comentario.dni)

@@ -3,7 +3,29 @@ const data = require('../db/data');
 const usersController = {
     
     detalleUsuario: function(req,res){
-        return res.render("detalleUsuario");
+        
+        let idUsuario = req.params.id;
+
+        // vairable para guardar el usuario encontrado
+        let usuario = {}
+        
+        for (let i = 0; i < data.listadoUsuario.length; i++) {
+            if (data.listadoUsuario[i].id == idUsuario) {
+                usuario = data.listadoUsuario[i];
+            }
+        }
+
+        // variable para guardar los posteos del usuario
+        let posteos = []
+
+        for (let i = 0; i < data.listadoPosteos.length; i++) {
+            if (data.listadoPosteos[i].usuario.id == idUsuario) {
+                posteos.push(data.listadoPosteos[i])
+            }
+        }
+
+        return res.render("miPerfil", {info: usuario, Post: posteos});
+        
             
     },
     editarPerfil: function(req,res){
@@ -17,8 +39,28 @@ const usersController = {
             
     },
     miPerfil: function(req,res){
-        return res.render("miPerfil", {info: data.listadoUsuario[0], post: data.listadoPosteos}); 
-        //ponemos el indice cero para indicar que queremos el cero
+        
+        let idUsuario = req.params.id;
+
+        // vairable para guardar el usuario encontrado
+        let usuario = {}
+        
+        for (let i = 0; i < data.listadoUsuario.length; i++) {
+            if (data.listadoUsuario[i].id == idUsuario) {
+                usuario = data.listadoUsuario[i];
+            }
+        }
+
+        // variable para guardar los posteos del usuario
+        let posteos = []
+
+        for (let i = 0; i < data.listadoPosteos.length; i++) {
+            if (data.listadoPosteos[i].usuario.id == idUsuario) {
+                posteos.push(data.listadoPosteos[i])
+            }
+        }
+
+        return res.render("miPerfil", {info: usuario, Post: posteos});
             
     },
     registracion: function(req,res){
