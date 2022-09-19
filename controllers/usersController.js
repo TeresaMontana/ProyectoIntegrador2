@@ -19,7 +19,7 @@ const usersController = {
         let posteos = []
 
         for (let i = 0; i < data.listadoPosteos.length; i++) {
-            if (data.listadoPosteos[i].usuario.dni == idUsuario) {
+            if (data.listadoPosteos[i].dni == idUsuario) {
                 posteos.push(data.listadoPosteos[i])
             }
         }
