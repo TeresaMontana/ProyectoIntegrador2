@@ -10,7 +10,7 @@ const usersController = {
         let usuario = {}
         
         for (let i = 0; i < data.listadoUsuario.length; i++) {
-            if (data.listadoUsuario[i].id == idUsuario) {
+            if (data.listadoUsuario[i].dni == idUsuario) {
                 usuario = data.listadoUsuario[i];
             }
         }
@@ -19,12 +19,11 @@ const usersController = {
         let posteos = []
 
         for (let i = 0; i < data.listadoPosteos.length; i++) {
-            if (data.listadoPosteos[i].usuario.id == idUsuario) {
+            if (data.listadoPosteos[i].usuario.dni == idUsuario) {
                 posteos.push(data.listadoPosteos[i])
             }
         }
-
-        return res.render("miPerfil", {info: usuario, Post: posteos});
+        return res.render("detalleUsuario", {info: usuario, Post: posteos});
         
             
     },
@@ -58,8 +57,9 @@ const usersController = {
             if (data.listadoPosteos[i].usuario.id == idUsuario) {
                 posteos.push(data.listadoPosteos[i])
             }
+            // por que usuario.id? 
         }
-
+        
         return res.render("miPerfil", {info: usuario, Post: posteos});
             
     },

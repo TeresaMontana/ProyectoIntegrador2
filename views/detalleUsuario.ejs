@@ -8,24 +8,27 @@
     <main>
         <div class="user-detail container">
             <section class="top main-content">
-                <img class="profile" src="https://via.placeholder.com/100x100" alt="">
+                <img class="profile" src="<%= info.foto%>" alt="">
                 <div class="info-usuario">
-                    <p>Nombre de usuario</p> 
+                    <p><%= info.username%></p> 
                     <a class="follow" href="">seguir</a>
                     <ul class="meta">
-                        <li>100 post</li>
-                        <li>200 seguidores</li>
-                        <li>300 seguidos</li>
+                        <li><%= info.usuarioPosteos%></li>
+                        <li><%= info.seguidores%></li>
+                        <li><%= info.seguidos%></li>
                     </ul>
                 </div>
             </section>
             <section class="bottom">
-                <article class="post">
-                    <a href="/posts/detallePost<%= Post[i].id%>">
-                        <img src="<%= Post[i].foto %>" alt="">
-                        <p> <%= Post[i].texto %></p>
-                    </a>
-                </article>
+                <% for (let index = 0; index < array.length; index++) { %>
+                    <article class="post">
+                        <a href="/posts/detallePost/<%= Post[i].PostId%>">
+                            <img src="<%= Post[i].foto %>" alt="">
+                            <p> <%= Post[i].texto %></p>
+                        </a>
+                    </article>
+                <% }%>
+                
             </section>
         </div>
     </main>
