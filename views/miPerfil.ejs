@@ -11,10 +11,10 @@
             <section class="top main-content">
                 <img class="profile" src="<%= info.foto %>" alt="">
                 <div class="info-usuario">
-                    <p><%- info.posteos %> </p> 
+                    <p><%- info.usernam %> </p> 
                     <a class="follow" href="/users/editarPerfil"><i class="fa-solid fa-user-gear"></i></a>
                     <ul class="meta">
-                        <li><%- info.username %></li>
+                        <li><%- info.usuarioPosteos %></li>
                         <li><%- info.seguidores %></li>
                         <li><%- info.seguidos %></li>
                     </ul>
@@ -22,8 +22,9 @@
             </section>
             <section class="bottom">
                 <% for (let i = 0; i < Post.length; i++) { %>
+
                 <article class="post">
-                    <a href="/posts/detallePost/<%= Post[i].id%>">
+                    <a href="/posts/detallePost/<%= Post[i].PostId%>">
                         <img src="<%= Post[i].foto %>" alt="">
                         <p> <%= Post[i].texto %></p>
                     </a>

@@ -5,27 +5,8 @@ const indexController = {
 
         let listadoPosteos = data.listadoPosteos
 
-        //let usuario = {}
-        
-        //for (let i = 0; i < data.listadoUsuario.length; i++) {
-           // if (data.listadoUsuario[i].dni == idUsuario) {
-           //     usuario = data.listadoUsuario[i];
-          //  }
-        //}
-        
-        //let posteo = 
-        //for (let i = 0; index < data.listadoPosteos.length; i++) {
-           //if(data.listadoPosteo[i].usuario.dni == posteo.dni){
-
-           //}
-            
-       // }
-        
-        
-        
-        
         listadoPosteos.forEach(posteo => {
-            posteo.usuario = data.listadoUsuario.find(usuario => usuario.userId === posteo.PostId)
+            posteo.usuario = data.listadoUsuario.find(usuario => usuario.dni === posteo.dni)
             posteo.comentarios = data.listadoComentarios.filter(comentario => comentario.PostId === posteo.PostId)
             posteo.comentarios.forEach(comentario => {
                 comentario.usuario = data.listadoUsuario.find(usuario => usuario.dni == comentario.dni)
@@ -34,6 +15,7 @@ const indexController = {
 
         res.render('index', {posteos:listadoPosteos})
 
+        // res.send(listadoPosteos)
 
     },
     busqueda:  function(req,res){

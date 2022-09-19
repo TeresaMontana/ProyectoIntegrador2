@@ -4,7 +4,7 @@ const usersController = {
     
     detalleUsuario: function(req,res){
         
-        let idUsuario = req.params.id; //para poder definir que vamos a hacer con los datos de id 
+        let idUsuario = req.params.id;
 
         // vairable para guardar el usuario encontrado
         let usuario = {}
@@ -19,11 +19,16 @@ const usersController = {
         let posteos = []
 
         for (let i = 0; i < data.listadoPosteos.length; i++) {
-            if (data.listadoPosteos[i].dni == idUsuario) {     //listado porque un usuario puede tener muchos posteos
-                posteos.push(data.listadoPosteos[i])
+            if (data.listadoPosteos[i].dni == usuario.dni) {
+                posteos.push(data.listadoPosteos[i]);
             }
         }
-        return res.render("detalleUsuario", {info: usuario, Post: posteos}); //enviar 
+
+        usuario.posteos = posteos;
+
+        return res.render("detalleUsuario", {info: usuario, Post: posteos});
+
+        // res.send(usuario)
         
             
     },
@@ -45,7 +50,7 @@ const usersController = {
         let usuario = {}
         
         for (let i = 0; i < data.listadoUsuario.length; i++) {
-            if (data.listadoUsuario[i].id == idUsuario) {
+            if (data.listadoUsuario[i].dni == idUsuario) {
                 usuario = data.listadoUsuario[i];
             }
         }
@@ -54,13 +59,16 @@ const usersController = {
         let posteos = []
 
         for (let i = 0; i < data.listadoPosteos.length; i++) {
-            if (data.listadoPosteos[i].usuario.id == idUsuario) {
-                posteos.push(data.listadoPosteos[i])
+            if (data.listadoPosteos[i].dni == usuario.dni) {
+                posteos.push(data.listadoPosteos[i]);
             }
-            // por que usuario.id? 
         }
-        
+
+        usuario.posteos = posteos;
+
         return res.render("miPerfil", {info: usuario, Post: posteos});
+
+        // res.send(usuario)
             
     },
     registracion: function(req,res){
