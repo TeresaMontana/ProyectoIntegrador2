@@ -41,16 +41,33 @@ CREATE TABLE comentarios (
 );
 
 
-INSERT INTO usuarios (email, username, foto, password, nacimiento, DNI)
-VALUES ();
+INSERT INTO usuarios (email, username, foto, password, nacimiento, DNI) 
+VALUES 
+("emitarascio@gmail.com","Emi","/images/fotoPerfil...","1234","2002-02-13",43847158),
+("teremontana@gmail.com","Tere","/images/fotoPerfil...","hola123","2000-05-10",42827331),
+("lucabello@gmail.com","Lu","/images/fotoPerfil...","lu54321","2000-06-26",42749592),
+("etarascio@udesa.edu.ar","Emilia","/images/fotoPerfil...","Et42749593","2000-08-26",42749593),
+("manu@cilfone.com","Manu","/images/fotoPerfil...","8888","1999-01-05",42000000);
 
+INSERT INTO posteos (foto, texto, FkUserId) 
+VALUES 
+("/images/fotoPosteo...","Pie de foto1",42000000),
+("/images/fotoPosteo...","Pie de foto2",42000001),
+("/images/fotoPosteo...","Pie de foto3",42000002),
+("/images/fotoPosteo...","Pie de foto4",42000003),
+("/images/fotoPosteo...","Pie de foto5",42000004),
+("/images/fotoPosteo...","Pie de foto6",42000005),
+("/images/fotoPosteo...","Pie de foto7",42000006),
+("/images/fotoPosteo...","Pie de foto8",42000007),
+("/images/fotoPosteo...","Pie de foto9",42000008),
+("/images/fotoPosteo...","Pie de foto10",42000009);
 
-INSERT INTO posteos (foto, texto, FkUserId)
-VALUES ();
-
-INSERT INTO comentarios  (texto, FkUserbId, FkPostId)
-VALUES (), (), ();
-
+INSERT INTO comentarios  (texto, FkUserbId, FkPostId) 
+VALUES 
+("Comentario1",42000000,1),
+("Comentario2",42000001,2),
+("Comentario3",42000002,3), 
+("Comentario4",42000003,4);
 
 
 
