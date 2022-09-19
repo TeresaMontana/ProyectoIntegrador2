@@ -51,24 +51,23 @@ VALUES
 
 INSERT INTO posteos (foto, texto, FkUserId) 
 VALUES 
-("/images/fotoPosteo...","Pie de foto1",42000000),
-("/images/fotoPosteo...","Pie de foto2",42000001),
-("/images/fotoPosteo...","Pie de foto3",42000002),
-("/images/fotoPosteo...","Pie de foto4",42000003),
-("/images/fotoPosteo...","Pie de foto5",42000004),
-("/images/fotoPosteo...","Pie de foto6",42000005),
-("/images/fotoPosteo...","Pie de foto7",42000006),
-("/images/fotoPosteo...","Pie de foto8",42000007),
-("/images/fotoPosteo...","Pie de foto9",42000008),
-("/images/fotoPosteo...","Pie de foto10",42000009);
+("/images/fotoPosteo...","Pie de foto1",43847158),
+("/images/fotoPosteo...","Pie de foto2",42827331),
+("/images/fotoPosteo...","Pie de foto3",42749592),
+("/images/fotoPosteo...","Pie de foto4",42749593),
+("/images/fotoPosteo...","Pie de foto5",42000000),
+("/images/fotoPosteo...","Pie de foto6",43847158),
+("/images/fotoPosteo...","Pie de foto7",42827331),
+("/images/fotoPosteo...","Pie de foto8",42749592),
+("/images/fotoPosteo...","Pie de foto9",42749593),
+("/images/fotoPosteo...","Pie de foto10",42000000);
 
 INSERT INTO comentarios  (texto, FkUserbId, FkPostId) 
 VALUES 
-("Comentario1",42000000,1),
-("Comentario2",42000001,2),
-("Comentario3",42000002,3), 
-("Comentario4",42000003,4);
-
+("Comentario1",43847158,1),
+("Comentario2",42827331,2),
+("Comentario3",42749592,3), 
+("Comentario4",42749593,4);
 
 
 
