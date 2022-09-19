@@ -7,16 +7,14 @@ const indexController = {
 
         listadoPosteos.forEach(posteo => {
             posteo.usuario = data.listadoUsuario.find(usuario => usuario.dni === posteo.dni)
-            posteo.comentarios = data.listadoComentarios.filter(comentario => comentario.PostId === posteo.id)
+            posteo.comentarios = data.listadoComentarios.filter(comentario => comentario.PostId === posteo.PostId)
             posteo.comentarios.forEach(comentario => {
-                comentario.usuario = data.listadoUsuarios.find(usuario => usuario.dni === comentario.dni)
+                comentario.usuario = data.listadoUsuario.find(usuario => usuario.dni == comentario.dni)
             })
         })
 
-
         res.render('index', {posteos:listadoPosteos})
 
-        // res.send(listadoPosteos)
 
     },
     busqueda:  function(req,res){

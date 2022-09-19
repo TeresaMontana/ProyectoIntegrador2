@@ -12,12 +12,12 @@
                             <div class="info-usuario ">
                                 <img src="<%= posteo.usuario.foto %>" width= 100, height= 100 alt="">
                                 <h4>
-                                    <a href="/users/detalleUsuario<%= posteo.usuario.dni %>"><%= posteo.usuario.nombreUsuario %></a>
+                                    <a href="/users/detalleUsuario/<%= posteo.usuario.dni %>"><%= posteo.usuario.username %></a>
                                 </h4>
                             </div>
                             <div class="post-body">
-                                <a href="/posts/detallePost<%= posteo.id %>">
-                                    <img src="<%= posteo.imagen %>" alt="">
+                                <a href="/posts/detallePost/<%= posteo.PostId %>">
+                                    <img src="<%= posteo.foto %>" alt="">
                                 </a>
                             </div>
                             <ul class="post-reacciones">
@@ -33,12 +33,12 @@
                                 <ul>
                                     <% posteo.comentarios.forEach(comentario => { %>
                                         <li>
-                                            <a href="/users/detalleUsuario<%= comentario.usuario.dni %>"><%= comentario.usuario.nombreUsuario %></a>
-                                            <span><%= comentario.texto %></span>
+                                            <a href="/users/detalleUsuario/<%= comentario.usuario.dni %>"><%= comentario.usuario.username %></a>
+                                            <span><%= comentario.comentario %></span>
                                         </li>
                                     <% }) %>
                                     
-                                    <a href="/posts/detallePost<%= posteo.id %>">Ver más...</a>
+                                    <a href="/posts/detallePost/<%= posteo.PostId %>">Ver más...</a>
                                 </ul>
                             </div>
                         </article>
