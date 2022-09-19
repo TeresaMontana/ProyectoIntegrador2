@@ -7,7 +7,7 @@ const data = {
             foto:'/img/FotoPerfil/hombre1.jpeg',
             password:1234,
             nacimiento: '1999-1-5',
-            posteos:10,
+            usuarioPosteos:10,
             seguidores:80,
             seguidos:90,
             dni: 418181
@@ -19,7 +19,7 @@ const data = {
             foto:'/img/FotoPerfil/hombre2.jpeg',
             password:1234,
             nacimiento: '1999-1-5',
-            posteos:6,
+            usuarioPosteos:6,
             seguidores:40,
             seguidos:100,
             dni: 11111
@@ -31,7 +31,7 @@ const data = {
             foto:'/img/FotoPerfil/mujer1.jpeg',
             password:1234,
             nacimiento: '1999-1-5',
-            posteos:8,
+            usuarioPosteos:8,
             seguidores:200,
             seguidos:240,
             dni: 22222
@@ -43,7 +43,7 @@ const data = {
             foto:'/img/FotoPerfil/mujer2.jpeg',
             password:1234,
             nacimiento: '1999-1-5',
-            posteos:8,
+            usuarioPosteos:8,
             seguidores:200,
             seguidos:240,
             dni: 33333
@@ -55,7 +55,7 @@ const data = {
             foto:'/img/FotoPerfil/mujer3.jpeg',
             password:1234,
             nacimiento: '1999-1-5',
-            posteos:4,
+            usuarioPosteos:4,
             seguidores:200,
             seguidos:240,
             dni: 44444
@@ -67,7 +67,7 @@ const data = {
             foto:'/img/FotoPerfil/mujer3.jpeg',
             password:1234,
             nacimiento: '1999-1-5',
-            posteos:4,
+            usuarioPosteos:4,
             seguidores:200,
             seguidos:240,
             dni: 12344
@@ -123,19 +123,19 @@ const data = {
         },
         {
             id: 2,
-            PostId: 1,
+            PostId: 2,
             dni:418181,
             comentario: "Que hermoso!",
         },
         {
             id: 3,
-            PostId: 1,
+            PostId: 4,
             dni:11111,
             comentario: "Buenisimo!",
         },
         {
             id: 4,
-            PostId: 1,
+            PostId: 4,
             dni:22222,
             comentario: "Genial!",
         }
