@@ -2,8 +2,13 @@
 <html lang="en">
 <%- include('./partials/head')%>
 
-    <body>
+<% if (locals.user != undefined) { %>
+    <%- include('./partials/headerLogueado')%>
+    <% } else { %> 
         <%- include('./partials/header')%>
+        <% } %>
+
+    <body>
 
             <main>
                 <section class="center main-content">

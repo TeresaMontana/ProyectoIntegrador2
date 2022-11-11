@@ -1,4 +1,7 @@
 const data = require('../db/data');
+const User = db.user;
+const bycript= require('bcryptjs');
+
 
 const usersController = {
     
@@ -74,10 +77,55 @@ const usersController = {
     registracion: function(req,res){
         return res.render("registracion");
             
-    }
+    },
+
+    store: (req, res) => {
+            let errors = {};
+    
+            if (req.body.usuario == "") {
+                errors.message = "El campo nombre esta vacio";
+                res.locals.errors = errors;   //me permite llevar info a las vistas. 
+                return res.render('registracion');
+    
+            } else if(req.body.email == ""){
+                errors.message = "El campo email esta vacio";
+                res.locals.errors = errors;
+                return res.render('registracion');
+
+            } else if(req.body.password.length <= 3){
+                errors.message = "El campo contrasenia esta vacio";
+                res.locals.errors = errors;
+                return res.render('registracion');
+
+            } else if(req.body.FotodePerfil == ""){
+                errors.message = "Por favor suba una foto de perfil";
+                res.locals.errors = errors;
+                return res.render('registracion');
+
+            } else {
+            let usuarioNuevo = req.body;
+            let FotodePerfil = req.file.filename;
+
+            let user ={
+                name:usuarioNuevo.usuario,
+                email:usuarioNuevo.email,
+                img : FotodePerfil,
+                password:bycript.hashSync(usuarioNuevo.password,10),
+                fecha: usuarioNuevo.fecha,
+                dni : usuarioNuevo.dni, }
+
+
+    User.create(user)
+    .then((result)=>{
+        return res.redirect('/users/login')
+    })
+    .catch((err)=>{
+        return console.log(err)
+    })
+}
+
+},
 
 }
 
-
-
-module.exports= usersController;
+module.exports= usersController
