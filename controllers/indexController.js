@@ -15,7 +15,7 @@ const indexController = {
 
         res.render('index', {posteos:listadoPosteos})
 
-        // res.send(listadoPosteos)
+        // res.send(listadoPosteos).
 
     },
     busqueda:  function(req,res){
