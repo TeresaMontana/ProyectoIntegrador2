@@ -121,6 +121,7 @@ const usersController = {
     })
     .catch((err)=>{
         return console.log(err)
+        //se cumplio el pedido asincronico
     })
 }
 
