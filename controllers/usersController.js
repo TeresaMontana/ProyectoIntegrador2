@@ -1,5 +1,5 @@
-const db = require('../database/models')
-const User = db.user;
+const db = require('../database/models');
+const User = db.Usuario;
 const bycript= require('bcryptjs');
 
 
