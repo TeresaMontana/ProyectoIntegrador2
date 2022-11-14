@@ -139,7 +139,7 @@ loginPost:(req,res)=>{
         if(result!=null){
             let passEncriptada= bycript.compareSync(info.password,result.password);
             if(passEncriptada){
-                return res.redirect('/movies')
+                return res.redirect('/miPerfil')
             }else{
                 return res.send('La clave no coincide')
             }
