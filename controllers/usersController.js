@@ -147,7 +147,13 @@ loginPost:(req,res)=>{
     })
     .catch(error=>console.log(error))
    
-}
+},
+logout:(req,res)=>{
+    /* Destruir la session */
+
+    /* Destruir la cookie */
+    return res.render('login');
+},
 
 }
 
