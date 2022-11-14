@@ -115,7 +115,7 @@ const usersController = {
                 dni : usuarioNuevo.dni, }
 
 
-    User.create(user)
+   User.create (user)
     .then((result)=>{
         return res.redirect('/users/login')
     })
@@ -126,6 +126,11 @@ const usersController = {
 }
 
 },
+create:(req,res)=>{ 
+    return res.render("registracion");
+},
+
+
 login:(req,res)=>{
     return res.render('login')
 },

@@ -25,7 +25,9 @@ let upload = multer({storage:storage});
 
 router.get('/login', usersController.login);
 router.get('/login', usersController.loginPost);
-router.post('/registracion', upload.single('FotodePerfil'), usersController.store);
+router.post('/registracion', upload.single('FotodePerfil'), usersController.);
+router.get('/registracion', usersController.create);
+router.post('/registracion', usersController.store);
 router.get('/editarPerfil', usersController.editarPerfil);
 
 
