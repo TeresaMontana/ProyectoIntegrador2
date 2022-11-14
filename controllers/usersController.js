@@ -126,6 +126,28 @@ const usersController = {
 }
 
 },
+login:(req,res)=>{
+    return res.render('login')
+},
+loginPost:(req,res)=>{
+    let info = req.body;
+    let filtro={
+        where:[{email:info.email}]
+    }
+    User.findOne(filtro)
+    .then((result)=>{
+        if(result!=null){
+            let passEncriptada= bycript.compareSync(info.password,result.password);
+            if(passEncriptada){
+                return res.redirect('/movies')
+            }else{
+                return res.send('La clave no coincide')
+            }
+        }
+    })
+    .catch(error=>console.log(error))
+   
+}
 
 }
 
