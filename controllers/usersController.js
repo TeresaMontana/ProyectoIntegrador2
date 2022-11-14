@@ -127,6 +127,7 @@ const usersController = {
 
 },
 create:(req,res)=>{ 
+    /* aqui hice un cambio */
     return res.render("registracion");
 },
 
