@@ -4,7 +4,7 @@ module.exports = function (sequelize, dataTypes) {
     /* 2do paso: crear u alias para que sequelize sepa con cual modelo debe conectar */
     let alias = "Comentario" // contiene una string
 
-    /* 3er paso: Es crear una variable con la estructura de la tabla */
+    /* 3er paso: Es crear una variable con la estructura de la tabla....*/
     let cols = {  // va a ser un objeto literal que va a tener lo siguiente
         id : {
             autoIncrement : true,
