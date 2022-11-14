@@ -31,7 +31,7 @@ router.post('/registracion', usersController.store);
 router.get('/editarPerfil', usersController.editarPerfil);
 
 
-//las rutas parametrizadas van al final
+//las rutas parametrizadas van al final.
 router.get('/detalleUsuario/:id', usersController.detalleUsuario); //RUTA DEL FORMULARIO DE DETALLE USUARIO (VISTAS)
 router.get('/miPerfil/:id', usersController.miPerfil);
 
