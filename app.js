@@ -6,6 +6,10 @@ var logger = require('morgan');
 
 const session = require('express-session');
 
+// importar los modelos de la DB
+
+const db = require('./proyectoIntegrador2/database/models')
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
@@ -37,12 +41,35 @@ app.use(function(req, res, next) {
   /* logica. si el usuario esta logueado quiero que se fuarde en locals, si no pasa al sifuiente middleware que es de cookies ..*/
   if(req.session.user != undefined) {
       res.locals.user = req.session.user;
+
   }
 
   return next();
 }); 
 
 /* Middleware de cookies*/
+app.use(function (req, res, next) {
+  if (req.cookies.userId != undefined && req.session.user == undefined) {
+    // si existe una cookie en el usuario llamada userId y el usuario no esta en sesion lo quiero poner en sesion 
+    let idUsuarioEnCookie = req.cookies.userId;
+
+    db.Usuario.findByPk(idUsuarioEnCookie)
+      .then((user) => {
+
+        req.session.user = user.dataValues; //dataValues es para conservar solo los datos de la tabla y no de todo el modelo
+        res.locals.user = user.dataValues; //locals es de res, pero hacemos lo mismo
+        
+        return next();
+      })
+      .catch((err) => {
+          console.log(err);
+          return next(); 
+      }); 
+  
+  } else {
+    return next();
+  }
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
