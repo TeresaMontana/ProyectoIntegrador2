@@ -24,13 +24,23 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //middleware: app.(use) que se ejecuta en cada re y res
-// creamos la config antes de las rutas
+// creamos la config antes de las rutas. session es una configuracion que tiene middleware
 
 app.use(session({
-  secret: 'miApp', //esto se hashea creando un identificador unico
+  secret: 'miApp', //esto se hashea creando un identificador unico. por encima de las rutas 
   resave: false, //ayuda a conservar la sesion
   saveUninitialized: true 
-}))
+}));
+
+/* nota: Crear middleware de locals aca. middleware: */
+app.use(function(req, res, next) {
+  /* logica. si el usuario esta logueado quiero que se fuarde en locals, si no pasa al sifuiente middleware que es de cookies */
+  if(req.session.user != undefined) {
+      res.locals.user = req.session.user;
+  }
+
+  return next();
+}); 
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

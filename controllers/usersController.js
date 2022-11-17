@@ -145,6 +145,9 @@ loginPost:(req,res)=>{
         if(result!=null){
             let passEncriptada= bycript.compareSync(info.password,result.password);
             if(passEncriptada){
+                req.session.user = result.dataValues; //aca el usuario ya esta en sesion  
+                
+                console.log(req.session.user);
                 return res.redirect('/miPerfil')
             }else{
                 return res.send('La clave no coincide')
