@@ -34,7 +34,7 @@ app.use(session({
 
 /* nota: Crear middleware de locals aca. middleware: */
 app.use(function(req, res, next) {
-  /* logica. si el usuario esta logueado quiero que se fuarde en locals, si no pasa al sifuiente middleware que es de cookies */
+  /* logica. si el usuario esta logueado quiero que se fuarde en locals, si no pasa al sifuiente middleware que es de cookies ..*/
   if(req.session.user != undefined) {
       res.locals.user = req.session.user;
   }
