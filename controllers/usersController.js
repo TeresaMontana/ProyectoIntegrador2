@@ -147,7 +147,10 @@ loginPost:(req,res)=>{
             if(passEncriptada){
                 req.session.user = result.dataValues; //aca el usuario ya esta en sesion  
                 
-                console.log(req.session.user);
+                if (info.rememberme != undefined) { // req.body = solo info, porque la llamamos mas arriba
+                    res.cookie('userId', result.dataValues.id, {maxAge:1000 * 60 *10}) 
+                }
+
                 return res.redirect('/miPerfil')
             }else{
                 return res.send('La clave no coincide')

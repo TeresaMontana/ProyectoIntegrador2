@@ -42,6 +42,8 @@ app.use(function(req, res, next) {
   return next();
 }); 
 
+/* Middleware de cookies*/
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login',loginRouter);

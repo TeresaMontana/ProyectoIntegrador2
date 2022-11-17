@@ -1,6 +1,11 @@
 <header class="main-header">
     <nav class="main-nav">
         <div class="navbar-left">
+           
+            <% if (locals.user != undefined) { %>
+                <a class="navbar-brand" href="#">Bienvenido, <%= locals.user.name %></a>
+            <% } %>
+            
             <h2 class="logo"><a href="/">The Jewelry Galery</a></h2>
         </div>
         <div class="navbar-center">
