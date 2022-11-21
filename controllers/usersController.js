@@ -1,5 +1,5 @@
-const db = require('../database/models')
-const User = db.user;
+const db = require('../database/models');
+const User = db.Usuario;
 const bycript= require('bcryptjs');
 
 
@@ -115,7 +115,7 @@ const usersController = {
                 dni : usuarioNuevo.dni, }
 
 
-    User.create(user)
+   User.create (user)
     .then((result)=>{
         return res.redirect('/users/login')
     })
@@ -126,6 +126,12 @@ const usersController = {
 }
 
 },
+create:(req,res)=>{ 
+    /* aqui hice un cambio */
+    return res.render("registracion");
+},
+
+
 login:(req,res)=>{
     return res.render('login')
 },
@@ -139,7 +145,13 @@ loginPost:(req,res)=>{
         if(result!=null){
             let passEncriptada= bycript.compareSync(info.password,result.password);
             if(passEncriptada){
-                return res.redirect('/movies')
+                req.session.user = result.dataValues; //aca el usuario ya esta en sesion  
+                
+                if (info.rememberme != undefined) { // req.body = solo info, porque la llamamos mas arriba
+                    res.cookie('userId', result.dataValues.id, {maxAge:1000 * 60 *10}) 
+                }
+
+                return res.redirect('/miPerfil')
             }else{
                 return res.send('La clave no coincide')
             }
@@ -147,7 +159,13 @@ loginPost:(req,res)=>{
     })
     .catch(error=>console.log(error))
    
-}
+},
+logout:(req,res)=>{
+    /* Destruir la session */
+
+    /* Destruir la cookie */
+    return res.render('login');
+},
 
 }
 

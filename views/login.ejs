@@ -11,10 +11,12 @@
             <% } %>
 
     <main>
+        <!-- Formulario de registro -->
 
         <section class="center main-content">
         <h1>Login</h1>
-        <form action="/users/miPerfil" method="get">
+
+        <form action="/users/miPerfil" method="POST">
             <div>
                 <label for="email"> Email</label>
                 <input type="email" name="email" placeholder="Inserte su email">
@@ -24,6 +26,10 @@
                 <input type="password" name="password">
             </div>
             <button type="submit"> Logueate </button>
+            <div>
+                <input id="recordarme" class="recordarme" type="checkbox" name="rememberme" />
+                <label class="recordarmeLabel" for="Recordarme">recordarme</label>
+            </div>
         </form>
         </section>
     </main>

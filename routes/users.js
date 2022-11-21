@@ -24,11 +24,14 @@ let upload = multer({storage:storage});
 /* GET users listing. */
 
 router.get('/login', usersController.login);
+router.get('/login', usersController.loginPost);
 router.post('/registracion', upload.single('FotodePerfil'), usersController.store);
+router.get('/registracion', usersController.create);
+router.post('/registracion', usersController.store);
 router.get('/editarPerfil', usersController.editarPerfil);
 
 
-//las rutas parametrizadas van al final
+//las rutas parametrizadas van al final.
 router.get('/detalleUsuario/:id', usersController.detalleUsuario); //RUTA DEL FORMULARIO DE DETALLE USUARIO (VISTAS)
 router.get('/miPerfil/:id', usersController.miPerfil);
 
