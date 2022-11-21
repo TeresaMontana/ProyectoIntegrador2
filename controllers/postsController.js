@@ -1,6 +1,15 @@
-const data = require('../db/data');
+const data = require('../database/models');
+const posteo = data.Posteo;
 
 const postsController = {
+    /*index : function(req, res){
+        posteo.findAll().
+        then((result) => {
+            return res.render('posteos', {posteos : data.lista})
+
+        });
+    }
+    */
     agregarPost: function(req, res) {
         res.render('agregarPost');
     },
