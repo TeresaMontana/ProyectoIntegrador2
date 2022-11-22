@@ -32,6 +32,18 @@ module.exports = function (sequelize, dataTypes) {
     /* 5to paso: crear el metodo define() con los 3 parametros */
     let Comentarios = sequelize.define(alias, cols, config);
 
+    /* 6to paso: crear la relacion entre las tablas */
+    Comentarios.associate = function(models){
+        Comentarios.belongsTo(models.Usuario, {
+            as : "usuario_comentario",
+            foreignKey : "userId"
+        })
+        Comentarios.belongsTo(models.Posteo, {
+            as : "posteo_comentario",
+            foreignKey : "postId"
+        })
+    }
+
     /* 6to paso: retornar el valor del modelo */
-    return Comentarios ;
+    return Comentarios;
 }
