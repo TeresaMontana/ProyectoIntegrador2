@@ -161,8 +161,32 @@ loginPost:(req,res)=>{
             Usuarios.findOne({
                 where: {
                     email: req.body.email
+                }
+            })
+                .then(function (usuario) {
+                    if (usuario) {
+                        if (bycript.compareSync(req.body.password, usuario.password)) {
+                            req.session.user = usuario.dataValues;
+                            if (req.body.recordame === "true") {
+                                res.cookie('recordame', usuario.email, { maxAge: 1000 * 60 * 60 * 24 * 7 })
+                            }
+                            return res.redirect('/')
+                        } else {
+                            return res.render('login', { errors: { password: { msg: 'Contraseña incorrecta' } } })
+                     }
+                    } else {
+                        return res.render('login', { errors: { email: { msg: 'No se encuentra registrado' } } })
+                    }
                 })
-        }}
+                .catch(function (error) {
+                    console.log(error)
+                })
+        } else {
+            return res.redirect('/')
+        }
+    } else {
+        return res.render('login', { errors: { email: { msg: 'El campo emial debe estar completo' } } })
+    }
    
 },
 logout:(req,res)=>{
