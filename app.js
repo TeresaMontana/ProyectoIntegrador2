@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//middleware: app.(use) que se ejecuta en cada re y res
+//middleware: app.(use) que se ejecuta en cada req y res
 // creamos la config antes de las rutas. session es una configuracion que tiene middleware
 
 app.use(session({
