@@ -1,44 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-	<%- include('./partials/head')%>
-<body>
-    <% if (locals.user != undefined) { %>
-        <%- include('./partials/headerLogueado')%>
-        <% } else { %> 
-            <%- include('./partials/header')%>
-            <% } %>
+<%- include('./partials/head') %>
 
-    <main>
-        <div class="post-detail container">
-            <section class="center main-content post">
-                <div class="info-usuario">
-                    <img src="<%= posteo.usuario.foto %>" alt=""> <!--IMAGEN USUARIO POST-->
-                    <p><a href="/users/detalleUsuario/<%= posteo.usuario.dni %>"><%= posteo.usuario.username %></a></p>
-                </div>
-                <img class="photo" src="<%= posteo.foto %>" alt=""> <!--IMAGEN POST-->
-            </section>
-            <section class="right">
-                <h4>Comentarios</h4>
-                <section class="comments">
-                    <form action="" class="comment-form">
-                        <input type="text" class="input" placeholder="Agregar comentario">
-                        <button type="submit">Comentar</button>
-                    </form>
-                    <div>
-                        <% for (let i = 0; i < posteo.comentarios.length; i++) { %>
-                            <article class="comment info-usuario">
-                                <img  src="<%= posteo.comentarios[i].usuario.foto %> " alt="">
-                                <section class="content">
-                                    <a class="user" href="/users/detalleUsuario/<%= posteo.comentarios[i].dni %>"><%= posteo.comentarios[i].usuario.username %></a>
-                                    <span class="text"><%= posteo.comentarios[i].comentario %></span>
-                                </section>
-                            </article>
+    <body>
+
+        <% if (locals.user) { %>
+            <%- include('./partials/headerLogueado') %>
+                <% } else { %>
+                    <%- include('./partials/header') %>
                         <% } %>
-                    </div>
-                </section>
-            </section>
-        </div>
-    </main>
-    <%- include('./partials/footer')%>
+                            <main>
+                                <div class="post-detail container">
+                                    <section class="center main-content post">
+                                        <div class="info-usuario">
+                                            <img src="/img/FotodePerfil/<%= posteo.usuario.foto %>" alt="">
+                                            <!--IMAGEN USUARIO POST-->
+                                            <p><a href="/users/detalleUsuario/<%= posteo.usuario.id %>">
+                                                    <%= posteo.usuario.username %>
+                                                </a></p>
+                                        </div>
+                                        <img class="photo" src="/img/Posteos/<%= posteo.foto %>" alt="">
+                                        <!--IMAGEN POST-->
+                                    </section>
+                                    <section class="right">
+                                        <h4>Comentarios</h4>
+                                        <section class="comments">
+                                            <form action="" class="comment-form">
+                                                <input type="text" class="input" placeholder="Agregar comentario">
+                                                <button type="submit">Comentar</button>
+                                            </form>
+                                            <div>
+                                                <% for (let i=0; i < posteo.comentarios_posteo.length; i++) { %>
+                                                    <article class="comment info-usuario">
+                                                        <img src="/img/FotodePerfil/<%= posteo.comentarios_posteo[i].usuario.foto %> "
+                                                            alt="">
+                                                        <section class="content">
+                                                            <a class="user"
+                                                                href="/users/detalleUsuario/<%= posteo.comentarios_posteo[i].id %>">
+                                                                <%= posteo.comentarios_posteo[i].usuario.username %>
+                                                            </a>
+                                                            <span class="text">
+                                                                <%= posteo.comentarios_posteo[i].comentario %>
+                                                            </span>
+                                                        </section>
+                                                    </article>
+                                                    <% } %>
+                                            </div>
+                                        </section>
+                                    </section>
+                                </div>
+                            </main>
+                            <%- include('./partials/footer')%>
 
 </html>
