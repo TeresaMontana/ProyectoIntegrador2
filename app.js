@@ -8,7 +8,7 @@ const session = require('express-session');
 
 // importar los modelos de la DB
 
-const db = require('./proyectoIntegrador2/database/models')
+const db = require('./database/models')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

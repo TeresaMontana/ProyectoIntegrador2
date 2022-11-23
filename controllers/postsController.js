@@ -1,5 +1,5 @@
-const data = require('../database/models');
-const posteo = data.Posteo;
+const db = require("../database/models");
+const Posteos = db.Posteo;
 
 const postsController = {
     /*index : function(req, res){
@@ -90,8 +90,74 @@ const postsController = {
         });
 
         // res.send(buscarPosteoByID(idPosteo,data))
-    }
+    },
+
+    //buscador
+
+    busqueda: function (req, res) {
+        let busqueda = req.query.q;
+        let filtro = req.query.filtro;
+        let ordenar = req.query.ordenar;
+    
+        if (ordenar !== "ASC") {
+          ordenar = "DESC";
+        }
+    
+        if (filtro === "usuarios") {
+          console.log("busqueda por usuario");
+          db.Usuario.findAll({
+            where: {
+              username: {
+                [db.Sequelize.Op.like]: "%" + busqueda + "%",
+              },
+            },
+            include: [
+              { association: "posteos_usuario", include: "usuario" },
+              { association: "comentarios_usuario", include: "usuario_comentario" },
+            ],
+            order: [["username", ordenar]],
+          })
+            .then(function (usuarios) {
+              res.render("resultadoBusqueda", {
+                usuarios: usuarios,
+                posteos: null,
+              });
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else if (filtro === "posteos") {
+          console.log("busqueda por posteos");
+          Posteos.findAll({
+            where: {
+              texto: {
+                [db.Sequelize.Op.like]: "%" + busqueda + "%",
+              },
+            },
+            include: [
+              { association: "usuario" },
+              { association: "comentarios_posteo", include: "usuario_comentario" },
+            ],
+            order: [
+              ["createdAt", ordenar],
+              ["comentarios_posteo", "createdAt", "ASC"],
+            ],
+          })
+            .then(function (posteos) {
+              res.render("resultadoBusqueda", {
+                posteos: posteos.slice(0, 10),
+                usuarios: null,
+              });
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          res.redirect("/");
+        }
+      },
 }
+
 
 module.exports = postsController;
 

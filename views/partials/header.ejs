@@ -2,12 +2,21 @@
     <nav class="main-nav">
         <div class="navbar-left">
             <h2 class="logo"><a href="/">The Jewelry Galery</a></h2>
->>>>>>> 49fa3f78166a567273d85c8a251fec3d49b4bcaf
         </div>
         <div class="navbar-center">
-            <form action="" class="search">
+            <form action="/posts/resultadoBusqueda" class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" class="search-input" placeholder="Buscar...">
+                <input type="search" class="search-input" name="q" placeholder="Buscar...">
+                <div class="filtros">
+                    <label for="filtros">Filtrar por:</label>
+                    <label for="posteos">posteos
+                        <input type="radio" name="filtro" value="posteos" checked>
+                    </label>
+                    <label for="usuarios">usuarios
+                        <input type="radio" name="filtro" value="usuarios">
+                    </label>
+                    <label for="ordenar">Ordenar ASC <input type="checkbox" name="ordenar" value="ASC"></label>
+                </div>
             </form>
         </div>
         <div class="navbar-right">

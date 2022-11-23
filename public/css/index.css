@@ -295,3 +295,19 @@ main {
     justify-content: space-between;
     width: 100%;
 }
+
+.navbar-center form {
+    width: 40vw;
+}
+
+.filtros {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navbar-center form label {
+    display: flex;
+}
