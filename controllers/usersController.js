@@ -113,14 +113,15 @@ const usersController = {
                 return res.render('registracion');
 
             } else {
-            let usuarioNuevo = req.body;
+            let usuarioNuevo = req.body;  //creamos la variable usuarioNuevo
             let FotodePerfil = req.file.filename;
+
 
             let user ={
                 name:usuarioNuevo.usuario,
                 email:usuarioNuevo.email,
-                img : FotodePerfil,
-                password:bycript.hashSync(usuarioNuevo.password,10),
+                img : FotodePerfil,                        
+                password:bycript.hashSync(usuarioNuevo.password,10), //modulo bcrypt con metodo hashSync (primer dato:string a hashear y segundo la sal)
                 fecha: usuarioNuevo.fecha,
                 dni : usuarioNuevo.dni, }
 
