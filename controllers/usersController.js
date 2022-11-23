@@ -1,8 +1,10 @@
-const db = require('../database/models');
-const User = db.Usuario;
-const bycript= require('bcryptjs');
+const db = require('../database/models'); // requerimos a la db
+const User = db.Usuario; // Creamos la variable User que  usa el modulo Usuario de la db
+const bycript= require('bcryptjs');  //Creamos variable bcrypt y requerimos el modulo de bcryptjs 
+//para saber que tengo este modulo, vamos a node modules y buscamos bcryptjs, si no esta es porque
+//no hicimos npm i bcryptjs 
 
-
+//creamos la constante usersController
 const usersController = {
     
     detalleUsuario: function(req,res){
@@ -74,12 +76,20 @@ const usersController = {
         // res.send(usuario)
             
     },
-    registracion: function(req,res){
-        return res.render("registracion");
-            
+
+
+    //Creamos los metodos del controlador, metodo registracion; con funcion que recibe un req y un res
+    //que me develve la vista registracion
+
+    registracion: function (req, res) {
+        if (!res.locals.user) {
+            return res.render("registracion");
+        } else {
+            return res.redirect('/')
+        }
     },
 
-    store: (req, res) => {
+    store: (req, res) => { //funcion flecha 
             let errors = {};
     
             if (req.body.usuario == "") {
@@ -114,23 +124,33 @@ const usersController = {
                 fecha: usuarioNuevo.fecha,
                 dni : usuarioNuevo.dni, }
 
-
-   User.create (user)
-    .then((result)=>{
-        return res.redirect('/users/login')
-    })
-    .catch((err)=>{
-        return console.log(err)
-        //se cumplio el pedido asincronico
-    })
-}
-
-},
-create:(req,res)=>{ 
-    /* aqui hice un cambio */
-    return res.render("registracion");
-},
-
+              
+                Usuarios.findOne({
+                    where: {
+                        email: user.email
+                    }
+                })
+                .then((result) => {
+                    if (result) {
+                        errors.message = "El email ya esta registrado";
+                        res.locals.errors = errors;
+                        return res.render('registracion');
+                    } else {
+                        Usuarios.create(user)
+                        .then((result) => {
+                            res.redirect('/users/login')
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            }
+    
+        },
 
 login:(req,res)=>{
     return res.render('login')

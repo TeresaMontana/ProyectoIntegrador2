@@ -23,19 +23,29 @@ let upload = multer({storage:storage});
 
 /* GET users listing. */
 
+// Renderiza la vista de login
 router.get('/login', usersController.login);
-router.get('/login', usersController.loginPost);
-router.post('/registracion', upload.single('FotodePerfil'), usersController.store);
-router.get('/registracion', usersController.create);
-router.post('/registracion', usersController.store);
+
+// Renderiza la vista de registro
+router.get('/registracion', usersController.registracion);
+
+// Renderiza la vista de mi perfil
+router.get('/miPerfil', usersController.miPerfil);
 router.get('/editarPerfil', usersController.editarPerfil);
+
+// Procesa el formulario de login
+router.post('/login', usersController.loginPost);
+
+// Procesa el formulario de registro
+router.post('/registracion', upload.single('FotodePerfil'), usersController.store);
+router.post('/registracion', usersController.store);
+
+// Procesa el formulario de edicion de perfil
+router.post('/editarPerfil', upload.single('FotodePerfil'), usersController.actualizarPerfil);
+router.post('/logout', usersController.logout);
 
 
 //las rutas parametrizadas van al final.
-router.get('/detalleUsuario/:id', usersController.detalleUsuario); //RUTA DEL FORMULARIO DE DETALLE USUARIO (VISTAS)
-router.get('/miPerfil/:id', usersController.miPerfil);
-
-
-
+router.get('/detalleUsuario/:id', usersController.detalleUsuario);
 
 module.exports = router;
