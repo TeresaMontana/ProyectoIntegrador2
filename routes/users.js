@@ -38,7 +38,6 @@ router.post('/login', usersController.loginPost);
 
 // Procesa el formulario de registro
 router.post('/registracion', upload.single('FotodePerfil'), usersController.store);
-router.post('/registracion', usersController.store);
 
 // Procesa el formulario de edicion de perfil
 router.post('/editarPerfil', upload.single('FotodePerfil'), usersController.actualizarPerfil);

@@ -6,7 +6,6 @@ const bycript= require('bcryptjs');  //Creamos variable bcrypt y requerimos el m
 
 //creamos la constante usersController
 const usersController = {
-    
     detalleUsuario: function(req,res){
         
         let idUsuario = req.params.id;
@@ -43,6 +42,31 @@ const usersController = {
         //no pongo indice de usurio porque yo quiero todos, no solo el primero
             
     },
+
+    actualizarPerfil: function (req, res) {
+        let body = req.body;
+        let idUsuario = req.params.id;
+
+        Usuarios.update({
+            email: body.email,
+            username: body.nombre,
+            foto: req.file.filename,
+            password: bycript.hashSync(body.password, 10),
+            nacimiento: body.nacimiento,
+            DNI: body.dni,
+        }, {
+            where: {
+                id: idUsuario
+            }
+        })
+            .then(function (usuario) {
+                res.redirect('/')
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    },
+
     login: function(req,res){
         return res.render("login");
             
@@ -118,15 +142,15 @@ const usersController = {
 
 
             let user ={
-                name:usuarioNuevo.usuario,
+                username:usuarioNuevo.usuario,
                 email:usuarioNuevo.email,
-                img : FotodePerfil,                        
+                foto : FotodePerfil,                        
                 password:bycript.hashSync(usuarioNuevo.password,10), //modulo bcrypt con metodo hashSync (primer dato:string a hashear y segundo la sal)
-                fecha: usuarioNuevo.fecha,
-                dni : usuarioNuevo.dni, }
+                nacimiento: usuarioNuevo.fecha,
+                DNI : usuarioNuevo.dni, }
 
-              
-                Usuarios.findOne({
+
+                User.findOne({
                     where: {
                         email: user.email
                     }
@@ -137,7 +161,7 @@ const usersController = {
                         res.locals.errors = errors;
                         return res.render('registracion');
                     } else {
-                        Usuarios.create(user)
+                        User.create(user)
                         .then((result) => {
                             res.redirect('/users/login')
                         })
@@ -157,37 +181,28 @@ login:(req,res)=>{
     return res.render('login')
 },
 loginPost:(req,res)=>{
-    if (req.body.email !== "" && req.body.password !== "") {
-        if (!res.locals.user) {
-            Usuarios.findOne({
-                where: {
-                    email: req.body.email
-                }
-            })
-                .then(function (usuario) {
-                    if (usuario) {
-                        if (bycript.compareSync(req.body.password, usuario.password)) {
-                            req.session.user = usuario.dataValues;
-                            if (req.body.recordame === "true") {
-                                res.cookie('recordame', usuario.email, { maxAge: 1000 * 60 * 60 * 24 * 7 })
-                            }
-                            return res.redirect('/')
-                        } else {
-                            return res.render('login', { errors: { password: { msg: 'Contraseña incorrecta' } } })
-                     }
-                    } else {
-                        return res.render('login', { errors: { email: { msg: 'No se encuentra registrado' } } })
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        } else {
-            return res.redirect('/')
-        }
-    } else {
-        return res.render('login', { errors: { email: { msg: 'El campo emial debe estar completo' } } })
+    let info = req.body;
+    let filtro={
+        where:[{email:info.email}]
     }
+    User.findOne(filtro)
+    .then((result)=>{
+        if(result!=null){
+            let passEncriptada= bycript.compareSync(info.password,result.password);
+            if(passEncriptada){
+                req.session.user = result.dataValues; //aca el usuario ya esta en sesion  
+                
+                if (info.rememberme != undefined) { // req.body = solo info, porque la llamamos mas arriba
+                    res.cookie('userId', result.dataValues.id, {maxAge:1000 * 60 *10}) 
+                }
+
+                return res.redirect('/miPerfil')
+            }else{
+                return res.send('La clave no coincide')
+            }
+        }
+    })
+    .catch(error=>console.log(error))
    
 },
 logout:(req,res)=>{
