@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+<%- include('./partials/head') %>
 
-	<%- include('./partials/head')%>
+    <body>
 
-<body>
-    <% if (locals.user != undefined) { %>
-        <%- include('./partials/headerLogueado')%>
-        <% } else { %> 
-            <%- include('./partials/header')%>
-            <% } %>
+        <% if (locals.user) { %>
+            <%- include('./partials/headerLogueado') %>
+                <% } else { %>
+                    <%- include('./partials/header') %>
+                        <% } %>
+                            <main>
+                                <div class="user-detail container">
+                                    <section class="top main-content">
+                                        <img class="profile" src="/img/FotodePerfil/<%= usuario.foto %>" alt="">
+                                        <div class="info-usuario">
+                                            <p>
+                                                <%= usuario.username %>
+                                            </p>
+                                            <a class="follow" href="/users/editarPerfil"><i
+                                                    class="fa-solid fa-user-gear"></i></a>
+                                            <ul class="meta">
+                                                <li>Posteos: <%= usuario.posteos_usuario.length %>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </section>
+                                    <section class="bottom">
+                                        <% for (let i=0; i < usuario.posteos_usuario.length; i++) { %>
 
-    <main>
-        <div class="user-detail container">
-            <section class="top main-content">
-                <img class="profile" src="<%= info.foto %>" alt="">
-                <div class="info-usuario">
-                    <p><%- info.usernam %> </p> 
-                    <a class="follow" href="/users/editarPerfil"><i class="fa-solid fa-user-gear"></i></a>
-                    <ul class="meta">
-                        <li><%- info.usuarioPosteos %></li>
-                        <li><%- info.seguidores %></li>
-                        <li><%- info.seguidos %></li>
-                    </ul>
-                </div>
-            </section>
-            <section class="bottom">
-                <% for (let i = 0; i < Post.length; i++) { %>
+                                            <article class="post">
+                                                <a href="/posts/detallePost/<%= usuario.posteos_usuario[i].id%>">
+                                                    <img src="/img/Posteos/<%= usuario.posteos_usuario[i].foto %>" alt="">
+                                                    <p>
+                                                        <%= usuario.posteos_usuario[i].texto %>
+                                                    </p>
+                                                </a>
+                                            </article>
+                                            <% } %>
+                                    </section>
+                                </div>
+                            </main>
 
-                <article class="post">
-                    <a href="/posts/detallePost/<%= Post[i].PostId%>">
-                        <img src="<%= Post[i].foto %>" alt="">
-                        <p> <%= Post[i].texto %></p>
-                    </a>
-                </article>
-                <% } %>
-            </section>
-        </div>
-    </main>
-
-    <%- include('./partials/footer')%>
-</body>
+                            <%- include('./partials/footer')%>
+    </body>
 
 </html>

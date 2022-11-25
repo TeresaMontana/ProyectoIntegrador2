@@ -8,7 +8,7 @@ const session = require('express-session');
 
 // importar los modelos de la DB
 
-const db = require('./database/models')
+const db = require('./database/models');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//middleware: app.(use) que se ejecuta en cada req y res
+//middleware: app.(use) que se ejecuta en cada re y res
 // creamos la config antes de las rutas. session es una configuracion que tiene middleware
 
 app.use(session({
@@ -41,9 +41,7 @@ app.use(function(req, res, next) {
   /* logica. si el usuario esta logueado quiero que se fuarde en locals, si no pasa al sifuiente middleware que es de cookies ..*/
   if(req.session.user != undefined) {
       res.locals.user = req.session.user;
-
   }
-
   return next();
 }); 
 
@@ -93,4 +91,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-

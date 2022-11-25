@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+<%- include('./partials/head') %>
 
-	<%- include('./partials/head')%>
+  <body>
 
-<body>
-    <% if (locals.user != undefined) { %>
-        <%- include('./partials/headerLogueado')%>
-        <% } else { %> 
-            <%- include('./partials/header')%>
+    <% if (locals.user) { %>
+      <%- include('./partials/headerLogueado') %>
+        <% } else { %>
+          <%- include('./partials/header') %>
             <% } %>
+              <main>
+                <!-- Formulario de registro -->
 
-    <main>
-        <!-- Formulario de registro -->
+                <section class="center main-content">
+                  <h1>Login</h1>
 
-        <section class="center main-content">
-        <h1>Login</h1>
+                  <form method="POST">
+                    <div>
+                      <label for="email"> Email</label>
+                      <input type="email" name="email" placeholder="Inserte su email">
+                    </div>
+                    <div>
+                      <label for="password"> Contraseña</label>
+                      <input type="password" name="password">
+                    </div>
+                    <div>
+                      <label for="recordame">Recordame</label>
+                      <input type="radio" name="recordame" value="true">
+                    </div>
+                    <button type="submit"> Logueate </button>
+                  </form>
+                </section>
+              </main>
 
-        <form action="/users/miPerfil" method="POST">
-            <div>
-                <label for="email"> Email</label>
-                <input type="email" name="email" placeholder="Inserte su email">
-            </div>
-            <div>
-                <label for="password"> Contraseña</label>
-                <input type="password" name="password">
-            </div>
-            <button type="submit"> Logueate </button>
-            <div>
-                <input id="recordarme" class="recordarme" type="checkbox" name="rememberme" />
-                <label class="recordarmeLabel" for="Recordarme">recordarme</label>
-            </div>
-        </form>
-        </section>
-    </main>
-
-    <%- include('./partials/footer')%>
-</body>
+              <%- include('./partials/footer')%>
+  </body>
 
 </html>
