@@ -105,7 +105,7 @@ const usersController = {
     //Creamos los metodos del controlador, metodo registracion; con funcion que recibe un req y un res
     //que me develve la vista registracion
 
-    registracion: function (req, res) {
+    create: function (req, res) {
         if (!res.locals.user) {
             return res.render("registracion");
         } else {
@@ -137,15 +137,15 @@ const usersController = {
                 return res.render('registracion');
 
             } else {
-            let usuarioNuevo = req.body;  //creamos la variable usuarioNuevo
+            let usuarioNuevo = req.body;  //Req.body guarda cada una de las propiedades.
             let FotodePerfil = req.file.filename;
 
 
-            let user ={
+            let user ={ //columnas que están en el modelo)
                 username:usuarioNuevo.usuario,
                 email:usuarioNuevo.email,
-                foto : FotodePerfil,                        
-                password:bycript.hashSync(usuarioNuevo.password,10), //modulo bcrypt con metodo hashSync (primer dato:string a hashear y segundo la sal)
+                fotofoto : FotodePerfil,                        
+                password:bycript.hashSync(usuarioNuevo.password,10), //modulo bcrypt con metodo hashSync (string a hashear,)
                 nacimiento: usuarioNuevo.fecha,
                 DNI : usuarioNuevo.dni, }
 
@@ -155,7 +155,9 @@ const usersController = {
                         email: user.email
                     }
                 })
-                .then((result) => {
+
+                // Él .then está preparado para escuchar si hay una respuesta. Espera esta promesa. 
+                .then((result) => {    
                     if (result) {
                         errors.message = "El email ya esta registrado";
                         res.locals.errors = errors;

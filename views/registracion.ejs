@@ -1,9 +1,10 @@
+<!-- /Si vamos a locals en app.js donde dice que si un usuario está en sesión crea un usuario llamado user. -->
 <!DOCTYPE html>
 <html lang="en">
 
 	<%- include('./partials/head')%>
 
-<body>
+<body> <!-- /asegurarnos usuario logueado usamos locals. -->
     <% if (locals.user != undefined) { %>
         <%- include('./partials/headerLogueado')%>
         <% } else { %> 
@@ -11,6 +12,7 @@
             <% } %>
     <main>
         <section class="center main-content">
+
             <form class="form" action="/users/registracion" method="POST" enctype="multipart/form-data">
                 <div class="title">Registrate</div>
 

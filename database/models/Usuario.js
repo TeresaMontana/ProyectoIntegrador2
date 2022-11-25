@@ -14,7 +14,7 @@ module.exports = function (sequelize, dataTypes) {
         username : {
             type : dataTypes.STRING
         },
-        foto : {
+        fotofoto : {
             type : dataTypes.STRING
         },
         password : {
