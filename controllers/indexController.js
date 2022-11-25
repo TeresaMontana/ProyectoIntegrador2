@@ -1,4 +1,3 @@
-const data = require('../db/data');
 const db = require("../database/models")
 const Posteos = db.Posteo;
 
