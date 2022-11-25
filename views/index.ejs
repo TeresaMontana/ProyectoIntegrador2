@@ -1,58 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('./partials/head')%>
+<%- include('./partials/head') %>
 
-<% if (locals.user != undefined) { %>
-    <%- include('./partials/headerLogueado')%>
-    <% } else { %> 
-        <%- include('./partials/header')%>
-        <% } %>
+  <body>
 
-    <body>
-
-            <main>
+    <% if (locals.user) { %>
+      <%- include('./partials/headerLogueado') %>
+        <% } else { %>
+          <%- include('./partials/header') %>
+            <% } %>
+              <main>
                 <section class="center main-content">
-                    <% posteos.forEach(posteo => { %> 
-                        <article class="post">
-                            <div class="info-usuario ">
-                                <img src="<%= posteo.usuario.foto %>" width= 100, height= 100 alt="">
-                                <h4>
-                                    <a href="/users/detalleUsuario/<%= posteo.usuario.dni %>"><%= posteo.usuario.username %></a>
-                                </h4>
-                            </div>
-                            <div class="post-body">
-                                <a href="/posts/detallePost/<%= posteo.PostId %>">
-                                    <img src="<%= posteo.foto %>" alt="">
-                                </a>
-                            </div>
-                            <ul class="post-reacciones">
-                                <li>
-                                    <i class="fa-regular fa-heart"></i>
-                                </li>
-                                <li>
-                                    <i class="fa-regular fa-comment"></i>
-                                </li>
-                            </ul>
-                            <div class="post-comentarios">
-                                <h4>Comentarios</h4>
-                                <ul>
-                                    <% posteo.comentarios.forEach(comentario => { %>
-                                        <li>
-                                            <a href="/users/detalleUsuario/<%= comentario.usuario.dni %>"><%= comentario.usuario.username %></a>
-                                            <span><%= comentario.comentario %></span>
-                                        </li>
-                                    <% }) %>
-                                    
-                                    <a href="/posts/detallePost/<%= posteo.PostId %>">Ver más...</a>
-                                </ul>
-                            </div>
-                        </article>
-                    <% }) %> 
+                  <% posteos.forEach(posteo=> { %>
+                    <article class="post">
+                      <div class="info-usuario">
+                        <img src="/img/FotodePerfil/<%= posteo.usuario.foto %>" width="100," height="100" alt="" />
+                        <h4>
+                          <a href="/users/detalleUsuario/<%= posteo.usuario.id %>">
+                            <%= posteo.usuario.username %>
+                          </a>
+                        </h4>
+                      </div>
+                      <div class="post-body">
+                        <a href="/posts/detallePost/<%= posteo.id %>">
+                          <img src="/img/Posteos/<%= posteo.foto %>" alt="" />
+                        </a>
+                      </div>
+                      <ul class="post-reacciones">
+                        <li>
+                          <i class="fa-regular fa-heart"></i>
+                        </li>
+                        <li>
+                          <i class="fa-regular fa-comment"></i>
+                        </li>
+                        <li><a href="/posts/detallePost/<%= posteo.id %>">
+                            <%= posteo.texto %>
+                          </a></li>
+                      </ul>
+                      <div class="post-comentarios">
+                        <h4>Comentarios</h4>
+                        <ul>
+                          <% posteo.comentarios_posteo.forEach(comentario=> { %>
+                            <li>
+                              <a href="/users/detalleUsuario/<%= comentario.usuario_comentario.dni %>">
+                                <%= comentario.usuario_comentario.username %>
+                              </a>
+                              <span>
+                                <%= comentario.comentario %>
+                              </span>
+                            </li>
+                            <% }) %>
+
+                              <a href="/posts/detallePost/<%= posteo.id %>">Ver más...</a>
+                        </ul>
+                      </div>
+                    </article>
+                    <% }) %>
                 </section>
-            </main>
+              </main>
 
-            <%- include('./partials/footer')%>
-
-    </body>
+              <%- include('./partials/footer')%>
+  </body>
 
 </html>

@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('./partials/head')%>
-<body>
-    <% if (locals.user != undefined) { %>
-        <%- include('./partials/headerLogueado')%>
-        <% } else { %> 
-            <%- include('./partials/header')%>
+<%- include('./partials/head') %>
+
+  <body>
+
+    <% if (locals.user) { %>
+      <%- include('./partials/headerLogueado') %>
+        <% } else { %>
+          <%- include('./partials/header') %>
             <% } %>
-    <main>
-        <section class="center main-content">
-        <h1>Nuevo Post</h1>
-        <form action="/" method="POST">
-            <div>
-                <label for="image">Imagen</label>
-                <input type="file" name="image" placeholder="Imagen">
-            </div>
-            <div>
-                <label for="post">Texto</label>
-                <input type="text" name="post" placeholder="Escribi un texto">
-            </div>
-            <button type="submit"> Agregar post </button>
-        </form>
-        </section>
-    </main>
-    <%- include('./partials/footer')%>
-</body>
+              <main>
+                <section class="center main-content">
+                  <h1>Nuevo Post</h1>
+                  <form action="/posts/agregar" method="POST" enctype="multipart/form-data">
+                    <div>
+                      <label for="image">Imagen</label>
+                      <input type="file" name="Posteos" placeholder="Imagen">
+                    </div>
+                    <div>
+                      <label for="post">Texto</label>
+                      <input type="text" name="texto" placeholder="Escribi un texto">
+                    </div>
+                    <button type="submit"> Agregar post </button>
+                  </form>
+                </section>
+              </main>
+              <%- include('./partials/footer')%>
+  </body>
 
 </html>
