@@ -1,48 +1,38 @@
-const db = require('../database/models'); // requerimos a la db
-const User = db.Usuario; // Creamos la variable User que  usa el modulo Usuario de la db
-const bycript= require('bcryptjs');  //Creamos variable bcrypt y requerimos el modulo de bcryptjs 
-//para saber que tengo este modulo, vamos a node modules y buscamos bcryptjs, si no esta es porque
-//no hicimos npm i bcryptjs 
+const db = require('../database/models');
+const Usuarios = db.Usuario;
+const bycript = require('bcryptjs');
 
-//creamos la constante usersController
+
 const usersController = {
-    detalleUsuario: function(req,res){
-        
+
+    detalleUsuario: function (req, res) {
+
         let idUsuario = req.params.id;
 
-        // vairable para guardar el usuario encontrado
-        let usuario = {}
-        
-        for (let i = 0; i < data.listadoUsuario.length; i++) {
-            if (data.listadoUsuario[i].dni == idUsuario) {
-                usuario = data.listadoUsuario[i];
-            }
-        }
-
-        // variable para guardar los posteos del usuario
-        let posteos = []
-
-        for (let i = 0; i < data.listadoPosteos.length; i++) {
-            if (data.listadoPosteos[i].dni == usuario.dni) {
-                posteos.push(data.listadoPosteos[i]);
-            }
-        }
-
-        usuario.posteos = posteos;
-
-        return res.render("detalleUsuario", {info: usuario, Post: posteos});
-
-        // res.send(usuario)
-        
-            
+        Usuarios.findByPk(idUsuario, {
+            include: [
+                { association: "posteos_usuario", include: 'comentarios_posteo' },
+                { association: "comentarios_usuario" }
+            ]
+        })
+            .then(function (usuario) {
+                // res.send(usuario)
+                res.render('detalleUsuario', {usuario:usuario})
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     },
-    editarPerfil: function(req,res){
-        return res.render("editarPerfil", {info: data.listadoUsuario, indice: req.params.id}); //req hace referencia al pedido del usuario y el res a la respuesta que le da el servidor
-                                                                        //req es un obj literal que esta en el navegador, y param tambien y esta adentro; y el .id porque es el nombre tiene que coincidir con el nombre que le ponemos en la ruta. 
+    editarPerfil: function (req, res) {
+        if (!res.locals.user) {
+            res.render('editarPerfil')
+        }else{
+            res.redirect('/login')
+        }
+        // return res.render("editarPerfil", { info: data.listadoUsuario, indice: req.params.id }); //req hace referencia al pedido del usuario y el res a la respuesta que le da el servidor
+        //req es un obj literal que esta en el navegador, y param tambien y esta adentro; y el .id porque es el nombre tiene que coincidir con el nombre que le ponemos en la ruta. 
         //no pongo indice de usurio porque yo quiero todos, no solo el primero
-            
     },
-
     actualizarPerfil: function (req, res) {
         let body = req.body;
         let idUsuario = req.params.id;
@@ -66,154 +56,167 @@ const usersController = {
                 console.log(error)
             })
     },
-
-    login: function(req,res){
-        return res.render("login");
-            
-    },
-    miPerfil: function(req,res){
-        
-        let idUsuario = req.params.id;
-
-        // vairable para guardar el usuario encontrado
-        let usuario = {}
-        
-        for (let i = 0; i < data.listadoUsuario.length; i++) {
-            if (data.listadoUsuario[i].dni == idUsuario) {
-                usuario = data.listadoUsuario[i];
+    loginPost: function (req, res) {
+        if (req.body.email !== "" && req.body.password !== "") {
+            if (!res.locals.user) {
+                Usuarios.findOne({
+                    where: {
+                        email: req.body.email
+                    }
+                })
+                    .then(function (usuario) {
+                        if (usuario) {
+                            if (bycript.compareSync(req.body.password, usuario.password)) {
+                                req.session.user = usuario.dataValues;
+                                if (req.body.recordame === "true") {
+                                    res.cookie('recordame', usuario.email, { maxAge: 1000 * 60 * 60 * 24 * 7 })
+                                }
+                                return res.redirect('/')
+                            } else {
+                                return res.render('login', { errors: { password: { msg: 'Contraseña incorrecta' } } })
+                            }
+                        } else {
+                            return res.render('login', { errors: { email: { msg: 'No se encuentra registrado' } } })
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            } else {
+                return res.redirect('/')
             }
+        } else {
+            return res.render('login', { errors: { email: { msg: 'El campo emial debe estar completo' } } })
         }
 
-        // variable para guardar los posteos del usuario
-        let posteos = []
+    },
+    miPerfil: function (req, res) {
+        if (res.locals.user) {
+            let idUsuario = res.locals.user.id;
 
-        for (let i = 0; i < data.listadoPosteos.length; i++) {
-            if (data.listadoPosteos[i].dni == usuario.dni) {
-                posteos.push(data.listadoPosteos[i]);
-            }
+            Usuarios.findByPk(idUsuario, {
+                include: [
+                    { association: "posteos_usuario", include: 'comentarios_posteo' },
+                    { association: "comentarios_usuario" }
+                ],
+                order: [["createdAt", "ASC"], ["posteos_usuario", "comentarios_posteo", "createdAt", "ASC"]]
+            })
+                .then(function (usuario) {
+                    // res.send(usuario)
+                    res.render('miPerfil', {usuario:usuario})
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        } else {
+            return res.redirect('/users/login')
         }
 
-        usuario.posteos = posteos;
-
-        return res.render("miPerfil", {info: usuario, Post: posteos});
-
-        // res.send(usuario)
-            
     },
-
-
-    //Creamos los metodos del controlador, metodo registracion; con funcion que recibe un req y un res
-    //que me develve la vista registracion
-
-    create: function (req, res) {
+    registracion: function (req, res) {
         if (!res.locals.user) {
             return res.render("registracion");
         } else {
             return res.redirect('/')
         }
     },
+    store: (req, res) => {
+        let errors = {};
 
-    store: (req, res) => { //funcion flecha 
-            let errors = {};
-    
-            if (req.body.usuario == "") {
-                errors.message = "El campo nombre esta vacio";
-                res.locals.errors = errors;   //me permite llevar info a las vistas. 
-                return res.render('registracion');
-    
-            } else if(req.body.email == ""){
-                errors.message = "El campo email esta vacio";
-                res.locals.errors = errors;
-                return res.render('registracion');
+        if (req.body.usuario == "") {
+            errors.message = "El campo nombre esta vacio";
+            res.locals.errors = errors;   //me permite llevar info a las vistas. 
+            return res.render('registracion');
 
-            } else if(req.body.password.length <= 3){
-                errors.message = "El campo contrasenia esta vacio";
-                res.locals.errors = errors;
-                return res.render('registracion');
+        } else if (req.body.email == "") {
+            errors.message = "El campo email esta vacio";
+            res.locals.errors = errors;
+            return res.render('registracion');
 
-            } else if(req.body.FotodePerfil == ""){
-                errors.message = "Por favor suba una foto de perfil";
-                res.locals.errors = errors;
-                return res.render('registracion');
+        } else if (req.body.password.length <= 3) {
+            errors.message = "El campo contrasenia esta vacio";
+            res.locals.errors = errors;
+            return res.render('registracion');
 
-            } else {
-            let usuarioNuevo = req.body;  //Req.body guarda cada una de las propiedades.
+        } else if (req.body.FotodePerfil == "") {
+            errors.message = "Por favor suba una foto de perfil";
+            res.locals.errors = errors;
+            return res.render('registracion');
+
+        } else {
+            let usuarioNuevo = req.body;
             let FotodePerfil = req.file.filename;
 
-
-            let user ={ //columnas que están en el modelo)
-                username:usuarioNuevo.usuario,
-                email:usuarioNuevo.email,
-                fotofoto : FotodePerfil,                        
-                password:bycript.hashSync(usuarioNuevo.password,10), //modulo bcrypt con metodo hashSync (string a hashear,)
+            let user = {
+                email: usuarioNuevo.email,
+                username: usuarioNuevo.usuario,
+                foto: FotodePerfil,
+                password: bycript.hashSync(usuarioNuevo.password, 10),
                 nacimiento: usuarioNuevo.fecha,
-                DNI : usuarioNuevo.dni, }
-
-
-                User.findOne({
-                    where: {
-                        email: user.email
-                    }
-                })
-
-                // Él .then está preparado para escuchar si hay una respuesta. Espera esta promesa. 
-                .then((result) => {    
-                    if (result) {
-                        errors.message = "El email ya esta registrado";
-                        res.locals.errors = errors;
-                        return res.render('registracion');
-                    } else {
-                        User.create(user)
-                        .then((result) => {
-                            res.redirect('/users/login')
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        })
-                    }
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+                DNI: usuarioNuevo.dni,
             }
-    
-        },
 
-login:(req,res)=>{
-    return res.render('login')
-},
-loginPost:(req,res)=>{
-    let info = req.body;
-    let filtro={
-        where:[{email:info.email}]
-    }
-    User.findOne(filtro)
-    .then((result)=>{
-        if(result!=null){
-            let passEncriptada= bycript.compareSync(info.password,result.password);
-            if(passEncriptada){
-                req.session.user = result.dataValues; //aca el usuario ya esta en sesion  
-                
-                if (info.rememberme != undefined) { // req.body = solo info, porque la llamamos mas arriba
-                    res.cookie('userId', result.dataValues.id, {maxAge:1000 * 60 *10}) 
+            Usuarios.findOne({
+                where: {
+                    email: user.email
                 }
-
-                return res.redirect('/miPerfil')
-            }else{
-                return res.send('La clave no coincide')
-            }
+            })
+            .then((result) => {
+                if (result) {
+                    errors.message = "El email ya esta registrado";
+                    res.locals.errors = errors;
+                    return res.render('registracion');
+                } else {
+                    Usuarios.create(user)
+                    .then((result) => {
+                        res.redirect('/users/login')
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         }
-    })
-    .catch(error=>console.log(error))
-   
-},
-logout:(req,res)=>{
-    /* Destruir la session */
 
-    /* Destruir la cookie */
-    return res.render('login');
-},
+    },
+    login: (req, res) => {
+        if (!res.locals.user) {
+            return res.render('login')
+        } else {
+            return res.redirect('/')
+        }
+    },
+    // loginPost: (req, res) => {
+    //     let info = req.body;
+    //     let filtro = {
+    //         where: [{ email: info.email }]
+    //     }
+    //     Usuarios.findOne(filtro)
+    //         .then((result) => {
+    //             if (result != null) {
+    //                 let passEncriptada = bycript.compareSync(info.password, result.password);
+    //                 if (passEncriptada) {
+    //                     req.session.usuarioLogueado = result;
+    //                     return res.redirect('/')
+    //                 } else {
+    //                     return res.send('La clave no coincide')
+    //                 }
+    //             }
+    //         })
+    //         .catch(error => console.log(error))
+
+    // },
+    logout: (req, res) => {
+        /* Destruir la session */
+        req.session.destroy();
+        /* Destruir la cookie */
+        res.clearCookie('recordame')
+        return res.redirect('/')
+    },
 
 }
 
-module.exports= usersController
+module.exports = usersController
