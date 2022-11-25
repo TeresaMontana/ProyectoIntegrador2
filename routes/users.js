@@ -27,7 +27,7 @@ let upload = multer({storage:storage});
 router.get('/login', usersController.login);
 
 // Renderiza la vista de registro
-router.get('/registracion', usersController.registracion);
+router.get('/registracion', usersController.create);
 
 // Renderiza la vista de mi perfil
 router.get('/miPerfil', usersController.miPerfil);
