@@ -32,12 +32,12 @@
                                             <div>
                                                 <% for (let i=0; i < posteo.comentarios_posteo.length; i++) { %>
                                                     <article class="comment info-usuario">
-                                                        <img src="/img/FotodePerfil/<%= posteo.comentarios_posteo[i].usuario.foto %> "
+                                                        <img src="/img/FotodePerfil/<%= posteo.comentarios_posteo[i].usuario_comentario.foto %> "
                                                             alt="">
                                                         <section class="content">
                                                             <a class="user"
-                                                                href="/users/detalleUsuario/<%= posteo.comentarios_posteo[i].id %>">
-                                                                <%= posteo.comentarios_posteo[i].usuario.username %>
+                                                                href="/users/detalleUsuario/<%= posteo.comentarios_posteo[i].usuario_comentario.id %>">
+                                                                <%= posteo.comentarios_posteo[i].usuario_comentario.username %>
                                                             </a>
                                                             <span class="text">
                                                                 <%= posteo.comentarios_posteo[i].comentario %>

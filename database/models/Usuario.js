@@ -14,7 +14,7 @@ module.exports = function (sequelize, dataTypes) {
         username : {
             type : dataTypes.STRING
         },
-        fotofoto : {
+        foto : {
             type : dataTypes.STRING
         },
         password : {
@@ -49,4 +49,3 @@ module.exports = function (sequelize, dataTypes) {
 
     return Usuarios ;
 }
-

@@ -1,14 +1,13 @@
-<!-- /Si vamos a locals en app.js donde dice que si un usuario está en sesión crea un usuario llamado user. -->
 <!DOCTYPE html>
 <html lang="en">
 <%- include('./partials/head') %>
 
-<body>
+  <body>
 
     <% if (locals.user) { %>
-    <%- include('./partials/headerLogueado') %>
+      <%- include('./partials/headerLogueado') %>
         <% } else { %>
-        <%- include('./partials/header') %>
+          <%- include('./partials/header') %>
             <% } %>
     <main>
         <section class="center main-content">
@@ -18,7 +17,7 @@
 
             <% if (locals.errors) { %>
                 <p class="error"  style="color:red"><%= locals.errors.message %> </p>
-            <% } %>
+              <% } %>
 
             <div>
                 <label for="usuario"> Nombre de Usuario</label>
